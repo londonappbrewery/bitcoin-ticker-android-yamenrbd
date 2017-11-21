@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Constants:
     // TODO: Create the base URL
-    private final String BASE_URL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD";
+    private final String BASE_URL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC";
 
 
     // Member Variables:
@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 parent.getItemAtPosition(position);
                 Log.d("Bitcoin", "" + parent.getItemAtPosition(position));
-                currency=parent.getItemAtPosition(position).toString();
-                letsDoSomeNetworking(BASE_URL);
+
+                String finalUrl = BASE_URL+parent.getItemAtPosition(position);
+                Log.d("Bitcoin","final url is "+finalUrl);
+                letsDoSomeNetworking(finalUrl);
             }
 
             @Override
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 // called when response HTTP status is "200 OK"
 
                 try {
-                    result = response.getString("ask");
+                    result = response.getString("last");
                     Log.d("Bitcoin",result);
                     mPriceTextView.setText(result);
                 } catch (JSONException e) {
